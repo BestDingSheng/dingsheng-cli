@@ -13,7 +13,7 @@ dingsheng
 ## 安装
 
 ```
-[sudo] npm install dingsheng  [-g]
+[sudo] npm install dingsheng  -g
 ```
 
 ## 使用
@@ -32,13 +32,18 @@ $ ding-cli chrome
 创建vue或react项目
 
 ```
-➜  dingsheng-cli git:(master) ✗ ding-cli init --vue
+➜  dingsheng-cli git:(master) ✗ ding-cli init
+
+? 请选择项目模板 vue
+
+? 请输入项目名称 vueproject
 
 正在拉取模板代码
 
 下载位置：/Users/deson/DesonProject/opensource/dingsheng-cli/vueproject/ ...
 
 模板工程建立完成
+
 
 ```
 

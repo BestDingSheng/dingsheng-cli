@@ -8,6 +8,7 @@ var program = require('commander'),
 
 var shell = require('shelljs')
 var clone = require('git-clone')
+var inquirer =require('inquirer')
 
 program
     .version(require('../package').version)
@@ -15,21 +16,43 @@ program
 
 program
     .command('init')
-    .option('--vue', '初始化vue项目')
-    .option('--react', '初始化react项目')
     .description('初始化前端项目')
     .action(function(option) {
-        let vue = option.vue;
-        let react = option.react;
-        if (vue) {
-            downProject('https://github.com/BestDingSheng/ding-initVue.git',"vueproject");
-        } else if (react) {
-             downProject('https://github.com/BestDingSheng/react-redux-demo.git',"reactproject");
-        } else {
-            console.log(chalk.cyan('请输入正确的参数'));
-            console.log(chalk.cyan('ding-cli init --vue'));
-            console.log(chalk.cyan('ding-cli init --react'));
-        }
+        var promps = []
+        promps.push({
+            type: 'list',
+            name: 'projectMode',
+            message: '请选择项目模板',
+            choices: [{
+                    name: 'vue',
+                    value: 'vue'
+                },
+                {
+                    name: 'react',
+                    value: 'react'
+                }
+            ]
+        })
+        promps.push({
+            type: 'input',
+            name: 'projectName',
+            message: '请输入项目名称',
+            validate: function(input) {
+                if (!input) {
+                    return '不能为空'
+                }
+                return true
+            }
+        })
+
+        inquirer.prompt(promps).then(function(answers) {
+            var {projectMode,projectName} = answers;
+            if(projectMode=='vue'){
+                downProject('https://github.com/BestDingSheng/ding-initVue.git',projectName);
+            }else{
+                downProject('https://github.com/BestDingSheng/react-redux-demo.git',projectName);
+            }
+        })
     })
 program
     .command('* <text>')
@@ -45,9 +68,9 @@ program.parse(process.argv)
 let query = process.argv[2];
 if (!query) {
     program.help();
-} 
+}
 // 下载模板
-function downProject(url,filename) {
+function downProject(url, filename) {
     let pwd = shell.pwd()
     let project = filename
     console.log(chalk.blue('正在拉取模板代码'));

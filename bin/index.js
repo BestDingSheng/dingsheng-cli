@@ -9,10 +9,20 @@ var program = require('commander'),
 var shell = require('shelljs')
 var clone = require('git-clone')
 var inquirer =require('inquirer')
+var weather = require('../lib/weather.js')
 
 program
     .version(require('../package').version)
-    .description('一个可以翻译和快速创建vue和react项目的工具')
+    .description('一个可以翻译,查询天气和快速创建vue和react项目的命令行工具')
+
+
+program
+    .command('weather')
+    .description('查看本地天气情况')
+    .action(function(){
+        weather.api()
+    })
+
 
 program
     .command('init')

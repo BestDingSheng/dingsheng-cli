@@ -5,7 +5,6 @@ var {
 } = require('../lib');
 var program = require('commander'),
     chalk = require('chalk');
-
 var shell = require('shelljs')
 var clone = require('git-clone')
 var inquirer =require('inquirer')
@@ -15,15 +14,29 @@ program
     .version(require('../package').version)
     .description('一个可以翻译,查询天气和快速创建vue和react项目的命令行工具')
 
-
 program
-    .command('weather')
-    .description('查看本地天气情况')
-    .action(function(){
-        weather.api()
+    .command('ts [content]')
+    .description('这是一个翻译命令，如 ding-cli ts chrome')
+    .action(function(content) {
+        if (content) {
+            api(content)
+        } else {
+            console.log(chalk.cyan('请填写需要翻译的单词'));
+        }
     })
 
-
+program
+    .command('weather [city]')
+    .description('查询天气预报默认上海，ding-cli weather beijing')
+    .action(function(city){
+        if(city){
+            weather.api(city)
+        }else{
+            console.log('请输入城市名称，如 ding-cli weather上海或者ding-cli weather shanghai')
+            console.log('');
+             weather.api()
+        }
+    })
 program
     .command('init')
     .description('初始化前端项目')
@@ -64,16 +77,7 @@ program
             }
         })
     })
-program
-    .command('* <text>')
-    .description('比如ding-cli node 会翻译node')
-    .action(function(text) {
-        if (text) {
-            api(text)
-        } else {
-            console.log(chalk.cyan('请填写需要翻译的单词'));
-        }
-    })
+
 program.parse(process.argv)
 let query = process.argv[2];
 if (!query) {

@@ -1,6 +1,6 @@
 {
   "name": "dingsheng",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -20,5 +20,9 @@
   },
   "bin": {
     "ding-cli": "./bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BestDingSheng/dingsheng-cli.git"
   }
 }

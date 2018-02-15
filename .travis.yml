@@ -7,4 +7,4 @@ before_install:
 - chmod 600 ~/.ssh/id_rsa
 - echo -e "Host 47.95.235.183\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 after_success:
-- 'cd /home/testci && git clone https://github.com/BestDingSheng/dingsheng-cli.git'
+- ssh root@ding 'cd /home/testci && git clone https://github.com/BestDingSheng/dingsheng-cli.git'

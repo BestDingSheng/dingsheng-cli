@@ -6,5 +6,7 @@ before_install:
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 - echo -e "Host 47.95.235.183\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+addons:
+  ssh_known_hosts: 47.95.235.183
 after_success:
-- ssh root@ding 'cd /home/testci && git clone https://github.com/BestDingSheng/dingsheng-cli.git'
+- ssh root@47.95.235.183 'cd /home/testci && git clone https://github.com/BestDingSheng/dingsheng-cli.git'
